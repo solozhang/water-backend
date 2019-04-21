@@ -48,7 +48,7 @@ public class ProjectSchedule {
     @Autowired
     private DeviceDAO deviceDAO;
 
-    @Scheduled(cron = "*/2 * * * * ?")
+    @Scheduled(cron = "*/30 * * * * ?")
     public void init() {
         log.info("crontab project task...");
         List<Project> projectList = projectDAO.query();
