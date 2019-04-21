@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -80,7 +81,8 @@ public class HttpClientUtil {
             HttpEntity entity = response.getEntity();
 
             InputStream in = entity.getContent();
-            File file = new File(path.getParent() + "/" + path.getFileName() + "/" + filename);
+            Path newFilePath = Files.createFile(path.resolve(filename));
+            File file = new File(newFilePath.toAbsolutePath().toString());
             FileOutputStream out = new FileOutputStream(file);
 
             byte[] buffer = new byte[4096];
