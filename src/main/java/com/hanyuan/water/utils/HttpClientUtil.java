@@ -81,6 +81,7 @@ public class HttpClientUtil {
             HttpEntity entity = response.getEntity();
 
             InputStream in = entity.getContent();
+            System.out.println(path.resolve(filename));
             Path newFilePath = Files.createFile(path.resolve(filename));
             File file = new File(newFilePath.toAbsolutePath().toString());
             FileOutputStream out = new FileOutputStream(file);

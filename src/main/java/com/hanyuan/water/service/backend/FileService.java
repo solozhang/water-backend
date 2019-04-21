@@ -50,7 +50,8 @@ public class FileService {
         String monitorName = monitor.getName();
         String dirName =  rootpath + projectName + "/" + meterLevel + "/" + monitorName + "/";
         try {
-            Path path = Files.createDirectories(Paths.get(dirName));
+            String dirNameEncoding = new String(dirName.getBytes("UTF-8"));
+            Path path = Files.createDirectories(Paths.get(dirNameEncoding));
             return path;
         } catch (IOException e) {
             e.printStackTrace();
