@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +42,7 @@ public class FileService {
         */
     }
 
-    public String mkDir(Monitor monitor){
+    public Path mkDir(Monitor monitor){
         Long projectId = monitor.getProjectId();
         Project project = projectDAO.get(projectId);
         String projectName = project.getName();
@@ -49,10 +50,11 @@ public class FileService {
         String monitorName = monitor.getName();
         String dirName =  rootpath + projectName + "/" + meterLevel + "/" + monitorName + "/";
         try {
-            Files.createDirectories(Paths.get(dirName));
+            Path path = Files.createDirectories(Paths.get(dirName));
+            return path;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dirName;
+        return null;
     }
 }

@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +65,7 @@ public class HttpClientUtil {
         return "";
     }
 
-    public static void downFile(String url, String filepath){
+    public static void downFile(String url, Path path, String filename){
         RequestConfig.Builder requestBuilder = RequestConfig.custom();
         requestBuilder = requestBuilder.setConnectTimeout(10000);
         requestBuilder = requestBuilder.setConnectionRequestTimeout(10000);
@@ -79,7 +80,7 @@ public class HttpClientUtil {
             HttpEntity entity = response.getEntity();
 
             InputStream in = entity.getContent();
-            File file = new File(filepath);
+            File file = new File(path.getParent() + "/" + path.getFileName() + "/" + filename);
             FileOutputStream out = new FileOutputStream(file);
 
             byte[] buffer = new byte[4096];
@@ -90,7 +91,7 @@ public class HttpClientUtil {
                 out.write(bytes);
             }
             out.flush();
-            log.info("[download]url:{}, file:{}", url, filepath);
+            log.info("[download]url:{}, file:{}", url, filename);
 
         } catch (IOException e) {
             e.printStackTrace();

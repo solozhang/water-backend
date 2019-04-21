@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,8 +49,8 @@ public class DeviceService {
             String picUrl = captureData.getPicUrl();
             Monitor monitor = monitorDAO.getByDevice(device.getId());
             String filename = fileService.getFilename(monitor);
-            String dirname = fileService.mkDir(monitor);
-            HttpClientUtil.downFile(picUrl, dirname + filename);
+            Path path = fileService.mkDir(monitor);
+            HttpClientUtil.downFile(picUrl, path, filename);
         } else {
             log.error(response);
         }
