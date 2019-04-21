@@ -64,7 +64,7 @@ public class HttpClientUtil {
         return "";
     }
 
-    public static void downFile(String url, String file){
+    public static void downFile(String url, String filepath){
         RequestConfig.Builder requestBuilder = RequestConfig.custom();
         requestBuilder = requestBuilder.setConnectTimeout(10000);
         requestBuilder = requestBuilder.setConnectionRequestTimeout(10000);
@@ -79,7 +79,9 @@ public class HttpClientUtil {
             HttpEntity entity = response.getEntity();
 
             InputStream in = entity.getContent();
-            OutputStream out = new FileOutputStream(file);
+            File file = new File(filepath);
+            FileOutputStream out = new FileOutputStream(file);
+
             byte[] buffer = new byte[4096];
             int readLength = 0;
             while ((readLength=in.read(buffer)) > 0) {
@@ -88,7 +90,7 @@ public class HttpClientUtil {
                 out.write(bytes);
             }
             out.flush();
-            log.info("[download]url:{}, file:{}", url, file);
+            log.info("[download]url:{}, file:{}", url, filepath);
 
         } catch (IOException e) {
             e.printStackTrace();
