@@ -6,7 +6,7 @@ import com.hanyuan.water.model.Monitor;
 import com.hanyuan.water.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -16,7 +16,7 @@ import java.util.Date;
  * Created by solozhang on 2019/4/21.
  */
 
-@Component
+@Service
 public class FileService {
 
     @Value("${static.rootpath}")

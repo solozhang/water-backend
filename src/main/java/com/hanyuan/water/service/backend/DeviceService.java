@@ -10,7 +10,7 @@ import com.hanyuan.water.vo.resp.CaptureData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by solozhang on 2019/4/14.
  */
 @Slf4j
-@Component
+@Service
 public class DeviceService {
 
     @Value("${ys7.url.capture}")

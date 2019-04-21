@@ -7,7 +7,7 @@ import com.hanyuan.water.model.Project;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -17,7 +17,7 @@ import java.util.concurrent.*;
  */
 
 @Slf4j
-@Component
+@Service
 public class ProjectSchedule {
 
     @Autowired
