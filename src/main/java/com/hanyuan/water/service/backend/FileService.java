@@ -1,6 +1,5 @@
 package com.hanyuan.water.service.backend;
 
-import com.hanyuan.water.dao.MonitorDAO;
 import com.hanyuan.water.dao.ProjectDAO;
 import com.hanyuan.water.model.MeterLevel;
 import com.hanyuan.water.model.Monitor;
@@ -19,9 +18,6 @@ import java.util.Date;
 
 @Component
 public class FileService {
-
-    @Autowired
-    private MonitorDAO monitorDAO;
 
     @Value("${static.rootpath}")
     private String rootpath;
