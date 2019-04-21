@@ -49,7 +49,7 @@ public class DeviceService {
             String picUrl = captureData.getPicUrl();
             Monitor monitor = monitorDAO.getByDevice(device.getId());
             String filename = fileService.getFilename(monitor);
-            Path path = fileService.mkDir(monitor);
+            String path = fileService.mkDir(monitor);
             HttpClientUtil.downFile(picUrl, path, filename);
         } else {
             log.error(response);
