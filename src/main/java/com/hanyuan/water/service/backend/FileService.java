@@ -42,7 +42,7 @@ public class FileService {
         String projectName = project.getName();
         String meterLevel = MeterLevel.getName(monitor.getMeterLevel());
         String monitorName = monitor.getName();
-        String dirName =  rootpath + projectName + "/" + meterLevel + "/" + monitorName + "/";
+        String dirName =  rootpath + "测试" + "/" + meterLevel + "/" + monitorName + "/";
         File f = new File(dirName);
         if(!f.exists())
             f.mkdirs();
