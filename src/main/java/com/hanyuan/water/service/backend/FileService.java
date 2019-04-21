@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,12 +30,15 @@ public class FileService {
     public String getFilename(Monitor monitor) {
         Date now = new Date();
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        return f.format(now) + ".jpg";
+        /*
         Long projectId = monitor.getProjectId();
         Project project = projectDAO.get(projectId);
         String projectName = project.getName();
         String meterLevel = MeterLevel.getName(monitor.getMeterLevel());
         String monitorName = monitor.getName();
         return projectName + "-" + meterLevel + '-' + monitorName + '-' + f.format(now) + ".jpg";
+        */
     }
 
     public String mkDir(Monitor monitor){
@@ -42,10 +47,12 @@ public class FileService {
         String projectName = project.getName();
         String meterLevel = MeterLevel.getName(monitor.getMeterLevel());
         String monitorName = monitor.getName();
-        String dirName =  rootpath + "测试" + "/" + meterLevel + "/" + monitorName + "/";
-        File f = new File(dirName);
-        if(!f.exists())
-            f.mkdirs();
+        String dirName =  rootpath + projectName + "/" + meterLevel + "/" + monitorName + "/";
+        try {
+            Files.createDirectories(Paths.get(dirName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return dirName;
     }
 }
