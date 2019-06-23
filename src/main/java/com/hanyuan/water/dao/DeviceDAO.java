@@ -1,6 +1,7 @@
 package com.hanyuan.water.dao;
 
 import com.hanyuan.water.model.Device;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,5 @@ public interface DeviceDAO {
     List<Device> query();
 
     @Select("SELECT * FROM device WHERE id = #{id}")
-    Device getById((value = "id") Long id);
+    Device getById(@Param(value = "id") Long id);
 }
