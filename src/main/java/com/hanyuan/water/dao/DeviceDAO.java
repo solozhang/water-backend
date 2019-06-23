@@ -14,4 +14,7 @@ import java.util.List;
 public interface DeviceDAO {
     @Select("SELECT * FROM device ORDER BY id")
     List<Device> query();
+
+    @Select("SELECT * FROM device WHERE id = #{id}")
+    Device getById((value = "id") Long id);
 }

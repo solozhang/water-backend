@@ -2,8 +2,10 @@ package com.hanyuan.water.service.backend;
 
 import com.hanyuan.water.dao.DeviceDAO;
 import com.hanyuan.water.dao.ProjectDAO;
+import com.hanyuan.water.dao.MonitorDAO;
 import com.hanyuan.water.model.Device;
 import com.hanyuan.water.model.Project;
+import com.hanyuan.water.model.Monitor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -48,6 +50,9 @@ public class ProjectSchedule {
     @Autowired
     private DeviceDAO deviceDAO;
 
+    @Autowired
+    private MonitorDAO monitorDAO;
+
     @Scheduled(cron = "*/30 * * * * ?")
     public void init() {
         log.info("crontab project task...");
@@ -64,15 +69,15 @@ public class ProjectSchedule {
 
     private void handleProject(Project project){
         if(isExecution(project)){
-            List<Device> deviceList = deviceDAO.query();
-            for (final Device device : deviceList) {
-                if (device.getId().equals((project.getId())))
-                    deviceExecutorService.submit(new Runnable() {
-                        @Override
-                        public void run() {
-                            deviceService.capture(device);
-                        }
-                    });
+            List<Monitor> monitorList = monitorDAO.getMonitors(project.getId());
+            for (final Monitor monitor : monitorList)
+                Device device = deviceDAO.getById(monitor.getDeviceId());
+                deviceExecutorService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        deviceService.capture(device);
+                    }
+                });
             }
         }
     }
