@@ -71,10 +71,10 @@ public class ProjectSchedule {
         if(isExecution(project)){
             List<Monitor> monitorList = monitorDAO.getMonitors(project.getId());
             for (final Monitor monitor : monitorList){
-                Device device = deviceDAO.getById(monitor.getDeviceId());
                 deviceExecutorService.submit(new Runnable() {
                     @Override
                     public void run() {
+                        Device device = deviceDAO.getById(monitor.getDeviceId());
                         deviceService.capture(device);
                     }
                 });
